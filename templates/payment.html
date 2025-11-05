@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Payment for Bill ID: {{ bill_id }}</h1>
+        <h3>Total Amount: {{ total_cost }}</h3>
+        
+        <p>Select a payment method:</p>
+        <a href="{{ url_for('thank_you_cash') }}" class="btn btn-success">Pay by Cash</a>
+        <a href="{{ url_for('thank_you_upi') }}" class="btn btn-primary">Pay by UPI</a>
+    </div>
+</body>
+</html>

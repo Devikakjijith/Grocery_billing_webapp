@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Billing System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Grocery Billing</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('add_grocery') }}">Add Grocery Item</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('customer_billing') }}">Customer Billing</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container text-center mt-5">
+      <h1 class="display-4 mb-4">Welcome to Grocery Billing System</h1>
+      <p class="lead">Easily manage groceries and customer bills.</p>
+      <a href="{{ url_for('add_grocery') }}" class="btn btn-success btn-lg m-2">Add Grocery Item</a>
+      <a href="{{ url_for('customer_billing') }}" class="btn btn-primary btn-lg m-2">Customer Billing</a>
+    </div>
+</body>
+</html>

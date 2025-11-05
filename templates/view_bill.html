@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+            margin-top: 30px;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        h3 {
+            margin-top: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="mb-3" style="color: #4CAF50;">Bill ID: {{ bill_id }}</h1>
+    <h2 class="mb-4" style="font-size: 2rem; font-weight: bold; color: #333;">Total Items: {{ items|length }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for name, price, quantity in items %}
+            <tr>
+                <td>{{ name }}</td>
+                <td>{{ price }}</td>
+                <td>{{ quantity }}</td>
+                <td>{{ price * quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Total Cost: ₹{{ total_cost }}</h3>
+    <a href="{{ url_for('home') }}">Go to Home</a>
+</body>
+</html>

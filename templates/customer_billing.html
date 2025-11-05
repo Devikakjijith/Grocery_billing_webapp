@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Billing</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Grocery Billing</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('add_grocery') }}">Add Grocery Item</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('customer_billing') }}">Customer Billing</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container mt-5" style="max-width: 400px;">
+      <h2 class="mb-4">Create a Bill for Customer</h2>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-info">
+            {% for message in messages %}
+              <div>{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      <form method="POST" action="{{ url_for('customer_billing') }}">
+        <div class="form-group">
+          <label for="customer_name">Customer Name:</label>
+          <input type="text" class="form-control" id="customer_name" name="customer_name" required>
+        </div>
+        <div class="form-group">
+          <label for="customer_phone">Customer Phone (optional):</label>
+          <input type="text" class="form-control" id="customer_phone" name="customer_phone">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Create Bill</button>
+      </form>
+      <a href="{{ url_for('home') }}" class="btn btn-secondary btn-block mt-3">Back to Home</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Items to Bill</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Grocery Billing</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('add_grocery') }}">Add Grocery Item</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('customer_billing') }}">Customer Billing</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container mt-5" style="max-width: 500px;">
+      <h1 class="mb-4">Add Items to Bill ID: {{ bill_id }}</h1>
+      <form method="POST">
+        <div id="item-fields">
+          <div class="form-row align-items-center mb-2">
+            <div class="col">
+              <select name="item_id" class="form-control">
+                {% for id, name, price in groceries %}
+                  <option value="{{ id }}">{{ name }} ({{ price }})</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col">
+              <input type="number" name="quantity" class="form-control" placeholder="Quantity" min="1" required>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-info btn-block mb-2" onclick="addItemField()">Add Another Item</button>
+        <button type="submit" class="btn btn-success btn-block">Add Items</button>
+      </form>
+      <form method="GET" action="{{ url_for('view_bill', bill_id=bill_id) }}">
+        <button type="submit" class="btn btn-primary btn-block mt-2">Finalize Bill</button>
+      </form>
+      <a href="{{ url_for('customer_billing') }}" class="btn btn-secondary btn-block mt-3">Back to Customer Billing</a>
+    </div>
+    <script>
+      function addItemField() {
+        const itemFields = document.getElementById("item-fields");
+        const newField = document.createElement("div");
+        newField.className = "form-row align-items-center mb-2";
+        newField.innerHTML = `
+          <div class='col'>
+            <select name='item_id' class='form-control'>
+              {% for id, name, price in groceries %}
+                <option value='{{ id }}'>{{ name }} ({{ price }})</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class='col'>
+            <input type='number' name='quantity' class='form-control' placeholder='Quantity' min='1' required>
+          </div>
+          <div class='col-auto'>
+            <button type='button' class='btn btn-danger' onclick='removeItemField(this)'>Remove</button>
+          </div>
+        `;
+        itemFields.appendChild(newField);
+      }
+      function removeItemField(button) {
+        button.parentElement.parentElement.remove();
+      }
+    </script>
+</body>
+</html>
